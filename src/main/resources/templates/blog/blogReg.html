@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>글 작성</h1>
+
+    <form id="regForm" action="/blog/reg" method="post">
+        <div>
+            글쓴이: <input type="text" name="name">
+        </div>
+        <div>
+            제목: <input type="text" name="title">
+        </div>
+        <div>
+            내용: <textarea name="content" row="3" cols="50"></textarea>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <a id="registerLink" href="#" style="margin-right: 10px;">등록</a>
+            <a th:href="@{/blog/list}">목록</a>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('registerLink').addEventListener('click', function(event) {
+            event.preventDefault(); // 기본 동작 방지(링크 이동 방지)
+            document.getElementById('regForm').submit(); // 폼 제출
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>상품 데이터 출력 예제</h1>
+
+    <form action="/thymeleaf/ex09" method="post">
+        <input type="hidden" name="id" th:value="${item.id}">
+        <div>
+            상품명: <input type="text" name="itemNm" th:value="${item.itemNm}">
+        </div>
+        <div>
+            상품상세설명: <textarea name="itemDetail" row="3" cols="50">[[${item.itemDetail}]]</textarea>
+        </div>
+        <div>
+            상품가격: <input type="text" name="price" th:value="${item.price}">
+        </div>
+        <div>
+            상품재고: <input type="text" name="stockNumber" th:value="${item.stockNumber}">
+        </div>
+        <div>
+            <input type="submit" value="수정">
+        </div>
+    </form>
+    <form action="/thymeleaf/ex10" method="post">
+        <input type="hidden" name="id" th:value="${item.id}">
+        <input type="submit" value="삭제">
+    </form>
+</body>
+</html>

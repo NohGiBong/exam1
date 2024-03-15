@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script th:inline="javascript">
+    function deletePost(e, bno) {
+        e.preventDefault(); // a 태그의 기본 동작을 막습니다.
+        if (!confirm('정말로 삭제하시겠습니까?')) return; // 삭제 확인
+
+        // 폼을 동적으로 생성합니다.
+        var form = document.createElement('form');
+        form.method = 'post';
+        form.action = '/blog/del';
+
+        // 게시물 번호를 위한 hidden input 요소를 생성하고 폼에 추가합니다.
+        var hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'bno';
+        hiddenField.value = bno;
+        form.appendChild(hiddenField);
+
+        // 폼을 body에 추가한 후 제출합니다.
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+<body>
+<h1>블로그 상세</h1>
+<table border="1">
+    <thead>
+    <td>게시물 번호</td>
+    <td>작성자</td>
+    <td>제목</td>
+    <td>등록일</td>
+    <td>수정일</td>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${blog.bno}"></td>
+        <td th:text="${blog.name}"></td>
+        <td th:text="${blog.title}"></td>
+        <td th:text="${#temporals.format(blog.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#temporals.format(blog.updateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+    <tr>
+        <td>내용</td>
+        <td colspan="4" th:text="${blog.content}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<!--<div>-->
+<!--    번호: <span th:text="${blog.bno}"></span>-->
+<!--</div>-->
+<!--<div>-->
+<!--    글쓴이: <span th:text="${blog.name}"></span>-->
+<!--</div>-->
+<!--<div>-->
+<!--    제목: <span th:text="${blog.title}"></span>-->
+<!--</div>-->
+<!--<div>-->
+<!--    내용: <span th:text="${blog.content}"></span>-->
+<!--</div>-->
+<!--<div>-->
+<!--    등록일: <span th:text="${#temporals.format(blog.regDate, 'yyyy-MM-dd HH:mm:ss')}"></span>-->
+<!--</div>-->
+<!--<div>-->
+<!--    수정일: <span th:text="${#temporals.format(blog.updateDate, 'yyyy-MM-dd HH:mm:ss')}"></span>-->
+<!--</div>-->
+
+<div style="display: flex; align-items: center;">
+    <a th:href="@{/blog/edit(bno=${blog.bno})}" style="margin-right: 10px;">수정</a>
+    <a href="#" th:onclick="'deletePost(event, ' + ${blog.bno} + ')'" style="margin-right: 10px;">삭제</a>
+    <a th:href="@{/blog/list}">목록</a>
+</div>
+
+</body>
+</html>
+
+<!--<form action="/blog/del" method="post" style="margin-right: 10px;">-->
+<!--    <input type="hidden" name="bno" th:value="${blog.bno}">-->
+<!--    <input type="submit" value="삭제">-->
+<!--</form>-->

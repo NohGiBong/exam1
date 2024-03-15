@@ -23,6 +23,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>,
     - 엔티티 이름은 생략 가능, By 뒤에는 검색할 때 사용할 변수의 이름 적어줌
      */
 
+
     List<Item> findByItemNm(String itemNm);
 
     List<Item> findByItemNmOrItemDetail(String itemNm, String itemDetail);

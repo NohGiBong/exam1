@@ -16,6 +16,8 @@ public class ItemDto {
 
     private Integer price;
 
+    private Integer stockNumber;
+
     private String itemDetail;
 
     private String sellStatCd;

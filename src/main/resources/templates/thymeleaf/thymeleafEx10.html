@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layout1}">
+
+    <th:block layout:fragment="css">
+        <style>
+            .test { color: blue; }
+        </style>
+    </th:block>
+
+    <th:block layout:fragmnet="javascript">
+        <script>
+            function show() {
+                alert("경고");
+            }
+        </script>
+    </th:block>
+
+
+    <div layout:fragment="content">
+        본문 영역입니다.
+    </div>
+
+</html>

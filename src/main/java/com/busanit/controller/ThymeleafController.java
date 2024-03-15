@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -113,4 +113,61 @@ public class ThymeleafController {
 
     }
 
+    @GetMapping("/ex08")
+    public String ex08() {
+        return "thymeleaf/thymeleafEx08";
+    }
+
+    @PostMapping("/ex08")
+    public String ex08(ItemDto itemDto) {
+
+        Item item = new Item();
+        item.setItemNm(itemDto.getItemNm());
+        item.setItemDetail(itemDto.getItemDetail());
+        item.setPrice(itemDto.getPrice());
+        item.setStockNumber(itemDto.getStockNumber());
+        item.setRegTime(itemDto.getRegTime());
+
+        itemRepository.save(item);
+
+        return "redirect:/thymeleaf/ex08";
+    }
+
+    @GetMapping("/ex09")
+    public String ex09(Long id, Model model) {
+
+        Item item = itemRepository.findById(id).orElseThrow(() -> new NullPointerException("item Null"));
+        model.addAttribute("item", item);
+
+        return "thymeleaf/thymeleafEx09";
+    }
+
+    @PostMapping("/ex09")
+    public String ex09(ItemDto itemDto) {
+
+        Item item = new Item();
+        item.setId(itemDto.getId());
+        item.setItemNm(itemDto.getItemNm());
+        item.setItemDetail(itemDto.getItemDetail());
+        item.setPrice(itemDto.getPrice());
+        item.setStockNumber(itemDto.getStockNumber());
+        item.setUpdateTime(LocalDateTime.now());
+
+        itemRepository.save(item);
+
+        return "redirect:/thymeleaf/ex08";
+    }
+
+    @PostMapping("/ex10")
+    public String ex10(Long id) {
+
+        itemRepository.deleteById(id);
+
+        return "redirect:/thymeleaf/ex08";
+    }
+
+    @GetMapping("/layout")
+    public String layout() {
+        return "thymeleaf/thymeleafEx10";
+    }
 }
